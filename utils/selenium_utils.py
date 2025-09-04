@@ -1,6 +1,8 @@
+from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from time import sleep
 
 
 def wait_for_presence(driver, by: By, locator: str, timeout: int = 10):
@@ -28,3 +30,28 @@ def wait_for_clickable(driver, by: By, locator: str, timeout: int = 10):
     return WebDriverWait(driver, timeout).until(
         EC.element_to_be_clickable((by, locator))
     )
+
+def iniciar_navegacao(link_da_certidao, cnpj):
+
+    # inicia o navegador
+    driver = webdriver.Chrome()
+     
+    # abre o site da certidao
+    driver.get(link_da_certidao)
+
+    if link_da_certidao == 'https://certidoes-apf.apps.tcu.gov.br/':
+
+        # localiza o campo do cnpj e insere o valor
+        caixa_pesquisa = wait_for_presence(driver, By.ID, 'numero-cnpj')
+        caixa_pesquisa.send_keys(cnpj)
+
+        # procura e clica no botão de pesquisa
+        botao_pesquisar = driver.find_element(By.XPATH, '//*[@id="app"]/div/div/main/main/div[1]/div[1]/div/div/div[3]/div/div[2]/button')
+        botao_pesquisar.click()
+
+        botao_baixar_pdf = wait_for_presence(driver, By.XPATH, '//*[@id="app"]/div/div/main/main/div[1]/div[2]/div/div/div[2]/div[3]/div/button')
+        botao_baixar_pdf.click()
+
+    sleep(10)
+
+    driver.close()
