@@ -1,2 +1,9 @@
-.venv/
 __pycache__/
+.venv/
+build/
+dist/
+
+teste.py
+main.spec
+icon.ico
+icon.svg

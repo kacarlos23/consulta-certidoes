@@ -31,7 +31,7 @@ def wait_for_clickable(driver, by: By, locator: str, timeout: int = 10):
         EC.element_to_be_clickable((by, locator))
     )
 
-def iniciar_navegacao(link_da_certidao, cnpj):
+def iniciar_navegacao(link_da_certidao, cadastro):
 
     # inicia o navegador
     driver = webdriver.Chrome()
@@ -43,13 +43,26 @@ def iniciar_navegacao(link_da_certidao, cnpj):
 
         # localiza o campo do cnpj e insere o valor
         caixa_pesquisa = wait_for_presence(driver, By.ID, 'numero-cnpj')
-        caixa_pesquisa.send_keys(cnpj)
+        caixa_pesquisa.send_keys(cadastro)
 
         # procura e clica no botão de pesquisa
         botao_pesquisar = driver.find_element(By.XPATH, '//*[@id="app"]/div/div/main/main/div[1]/div[1]/div/div/div[3]/div/div[2]/button')
         botao_pesquisar.click()
 
         botao_baixar_pdf = wait_for_presence(driver, By.XPATH, '//*[@id="app"]/div/div/main/main/div[1]/div[2]/div/div/div[2]/div[3]/div/button')
+        botao_baixar_pdf.click()
+
+    elif link_da_certidao == 'https://contas.tcu.gov.br/ords/f?p=1660:3:114749951000279::::P3_TIPO_RELACAO:INIDONEO':
+        botao_opcao = wait_for_clickable(driver, By.XPATH, '//*[@id="P3_TIPO"]/div/div/div[2]/label')
+        botao_opcao.click()
+
+        caixa_pesquisa = wait_for_presence(driver, By.XPATH, '//*[@id="P3_CPF_INI"]')
+        caixa_pesquisa.send_keys(cadastro)
+
+        botao_emitir_pdf = wait_for_presence(driver, By.XPATH, '//*[@id="B12005977244035393323"]')
+        botao_emitir_pdf.click()
+
+        botao_baixar_pdf = wait_for_presence(driver, By.XPATH, '//*[@id="R2730400877670862202"]/div[2]/div[2]/div[3]/a')
         botao_baixar_pdf.click()
 
     sleep(10)

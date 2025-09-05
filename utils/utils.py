@@ -2,47 +2,79 @@ import re
 from time import sleep
 import os
 
-def menu_cadastro():
-    os.system('cls')
-    print("====================================")
-    print("   SELECIONE O TIPO DE DOCUMENTO   ")
-    print("====================================")
-    print("1. CNPJ - Pessoa Jurídica")
-    print("2. CPF - Pessoa Física (indisponível)")
-    print("====================================")
-
-def menu_certidoes():
-    print("====================================")
-    print("   SELECIONE O TIPO DE CERTIDÃO   ")
-    print("====================================")
-    print("1. TCU CONSOLIDADA")
-    print("2. TCU INIDONEIDADE (indisponível)")
-    print("3. CNJ IMPROBIDADE (indisponível)")
-    print("4. CGU CEIS (indisponível)")
-    print("0. SAIR")
-    print("====================================")
+# lista de todas as certidoes e os dados delas
+certidoes = {
+    'TCU_CONSOLIDADA': {
+        'link': 'https://certidoes-apf.apps.tcu.gov.br/',
+        'orgao': 'Tribunal de Contas da União',
+        'descricao': 'Consulta consolidada de pessoa jurídica.'
+    },
+    'TCU_INIDONEIDADE': {
+        'link': 'https://contas.tcu.gov.br/ords/f?p=1660:3:114749951000279::::P3_TIPO_RELACAO:INIDONEO',
+        'orgao': 'Tribunal de Contas da União',
+        'descricao': 'Consulta Certidão Inidôneos.'
+    },
+    'CNJ_IMPROBIDADE': {
+        'link': 'https://www.cnj.jus.br/improbidade_adm/consultar_requerido.php',
+        'orgao': 'Conselho Nacional de Justiça',
+        'descricao': 'Consulta Certidão Improbidade Administrativa.'
+    },
+    'CGU_CEIS': {
+        'link': 'https://certidoes.cgu.gov.br/',
+        'orgao': 'Controladoria Geral da União',
+        'descricao': 'Consulta Certidões CEIS, CNEP e CEPIM.'
+    }
+}
 
 def corrige_cad(cad):
     cad_corrigido = re.sub(r'[^\d]', '', cad)
-
     return cad_corrigido
 
-def solicitar_e_processar_cnpj():
-    cnpj_original = input('Digite o CNPJ: ')
-    print('-> Processando CNPJ...')
-    sleep(2)
-    os.system('cls')
-    cnpj_corrigido = corrige_cad(cnpj_original)
-    print(f'CNPJ após o processamento: {cnpj_corrigido}')
+def analise_cadastro():
 
-    return cnpj_corrigido
+    while True:
+        cadastro = input('Digite o CPF / CNPJ: ')
+        cadastro_corrigido = corrige_cad(cadastro)
+        len_cad = len(cadastro_corrigido)
 
-def solicitar_e_processar_cpf():
-    cpf_original = input('Digite o CPF: ')
-    print('-> Processando CPF...')
-    print(2)
-    os.system('cls')
-    cpf_corrigido = corrige_cad(cpf_original)
-    print(f'CPF após o processamento: {cpf_corrigido}')
+        if len_cad == 11:
+            msg = f'Cadastro de CPF. {len_cad} numeros foram inseridos'
+            print(msg)
+            return cadastro_corrigido, 'CPF'
+        elif len_cad == 14:
+            msg = f'Cadastro de CNPJ. {len_cad} numeros foram inseridos'
+            print(msg)
+            return cadastro_corrigido, 'CNPJ'
+        else:
+            msg = f'Cadastro inválido. {len_cad} números foram inseridos (esperado: 11 para CPF ou 14 para CNPJ)'
+            print(msg)
+            print('Tente novamente.\n')
 
-    return cpf_corrigido
+
+def menu_certidoes(tipo):
+    print("====================================")
+    print(f"   MENU PARA {tipo}   ")
+    print("====================================")
+    
+    if tipo == 'CPF':
+        print('''====================================       
+SELECIONE O TIPO DE CERTIDÃO
+====================================       
+1. TCU INIDONEIDADE
+2. CNJ IMPROBIDADE (indisponível)
+3. CGU CEIS (indisponível)
+4. OUTRAS (indisponível)
+0. Sair
+====================================''')
+        
+    if tipo == 'CNPJ':
+        print('''====================================       
+SELECIONE O TIPO DE CERTIDÃO
+====================================       
+1. TCU INIDONEIDADE
+2. OUTRAS (indisponível)
+0. Sair
+====================================''')
+
+    opcao = input('Escolha uma opção: ')
+    return opcao
