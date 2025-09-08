@@ -26,6 +26,9 @@ certidoes = {
     }
 }
 
+def limpar_tela():
+    os.system('cls')
+
 def corrige_cad(cad):
     cad_corrigido = re.sub(r'[^\d]', '', cad)
     return cad_corrigido
@@ -33,12 +36,13 @@ def corrige_cad(cad):
 def analise_cadastro():
 
     while True:
+        limpar_tela()
         cadastro = input('Digite o CPF / CNPJ: ')
         cadastro_corrigido = corrige_cad(cadastro)
         len_cad = len(cadastro_corrigido)
 
         if len_cad == 11:
-            msg = f'Cadastro de CPF. {len_cad} numeros foram inseridos'
+            msg = f'\nCadastro de CPF. {len_cad} numeros foram inseridos'
             print(msg)
             return cadastro_corrigido, 'CPF'
         elif len_cad == 14:
@@ -51,14 +55,14 @@ def analise_cadastro():
             print('Tente novamente.\n')
 
 
-def menu_certidoes(tipo):
+def menu_certidoes(tipo, cadastro):
     print("====================================")
-    print(f"   MENU PARA {tipo}   ")
+    print(f"   MENU PARA {tipo} ({cadastro})  ")
     print("====================================")
     
     if tipo == 'CPF':
         print('''====================================       
-SELECIONE O TIPO DE CERTIDÃO
+    SELECIONE O TIPO DE CERTIDÃO
 ====================================       
 1. TCU INIDONEIDADE
 2. CNJ IMPROBIDADE (indisponível)
@@ -71,7 +75,7 @@ SELECIONE O TIPO DE CERTIDÃO
         print('''====================================       
 SELECIONE O TIPO DE CERTIDÃO
 ====================================       
-1. TCU INIDONEIDADE
+1. TCU CONSOLIDADA
 2. OUTRAS (indisponível)
 0. Sair
 ====================================''')
