@@ -6,24 +6,29 @@ import os
 certidoes = {
     'CONSOLIDADA': {
         'link': 'https://certidoes-apf.apps.tcu.gov.br/',
-        'orgao': 'Tribunal de Contas da União',
-        'descricao': 'Consulta consolidada de pessoa jurídica.'
+        'orgao': 'Tribunal de Contas da União'
     },
     'INIDONEIDADE': {
         'link': 'https://contas.tcu.gov.br/ords/f?p=1660:3:114749951000279::::P3_TIPO_RELACAO:INIDONEO',
-        'orgao': 'Tribunal de Contas da União',
-        'descricao': 'Consulta Certidão Inidôneos.'
+        'orgao': 'Tribunal de Contas da União'
     },
     'IMPROBIDADE': {
         'link': 'https://www.cnj.jus.br/improbidade_adm/consultar_requerido.php',
-        'orgao': 'Conselho Nacional de Justiça',
-        'descricao': 'Consulta Certidão Improbidade Administrativa.'
+        'orgao': 'Conselho Nacional de Justiça'
     },
     'CEIS': {
         'link': 'https://certidoes.cgu.gov.br/',
-        'orgao': 'Controladoria Geral da União',
-        'descricao': 'Consulta Certidões CEIS, CNEP e CEPIM.'
+        'orgao': 'Controladoria Geral da União'
+    },
+    'FEDERAL': {
+        'link': 'https://servicos.receitafederal.gov.br/servico/certidoes/#/home/cnpj',
+        'orgao': 'Receita Federal'
     }
+}
+
+certidoes_disponiveis = {
+    'CPF': ['INIDONEIDADE', 'IMPROBIDADE', 'CEIS'],
+    'CNPJ': ['CONSOLIDADA', 'FEDERAL']
 }
 
 def limpar_tela():
@@ -54,7 +59,6 @@ def analise_cadastro():
             print(msg)
             print('Tente novamente.\n')
 
-
 def menu_certidoes(tipo, cadastro):
     print("====================================")
     print(f"   MENU PARA {tipo} ({cadastro})  ")
@@ -65,10 +69,10 @@ def menu_certidoes(tipo, cadastro):
     SELECIONE O TIPO DE CERTIDÃO
 ====================================       
 1. TCU INIDONEIDADE
-2. CNJ IMPROBIDADE (indisponível)
+2. CNJ IMPROBIDADE
 3. CGU CEIS
-4. OUTRAS (indisponível)
-0. Sair
+0. TODAS AS CERTIDÕES
+99. Sair
 ====================================''')
         
     if tipo == 'CNPJ':
@@ -76,8 +80,9 @@ def menu_certidoes(tipo, cadastro):
 SELECIONE O TIPO DE CERTIDÃO
 ====================================       
 1. TCU CONSOLIDADA
-2. OUTRAS (indisponível)
-0. Sair
+2. CND FEDERAL
+0. TODAS AS CERTIDÕES
+99. Sair
 ====================================''')
 
     opcao = input('Escolha uma opção: ')
