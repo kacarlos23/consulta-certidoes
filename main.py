@@ -16,12 +16,18 @@ def main():
 
         if tipo == 'CNPJ':
             if opcao == '1':
-                link = utils.certidoes['TCU_CONSOLIDADA']['link']
+                link = utils.certidoes['CONSOLIDADA']['link']
                 selenium_utils.iniciar_navegacao(link, cadastro_corrigido)
 
         elif tipo == 'CPF':
             if opcao == '1':
-                link = utils.certidoes['TCU_INIDONEIDADE']['link']
+                link = utils.certidoes['INIDONEIDADE']['link']
+                selenium_utils.iniciar_navegacao(link, cadastro_corrigido)
+            if opcao == '2':
+                link = utils.certidoes['IMPROBIDADE']['link']
+                selenium_utils.iniciar_navegacao(link, cadastro_corrigido)
+            if opcao == '3':
+                link = utils.certidoes['CEIS']['link']
                 selenium_utils.iniciar_navegacao(link, cadastro_corrigido)
 
 if __name__ == '__main__':

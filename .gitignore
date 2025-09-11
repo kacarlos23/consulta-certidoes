@@ -1,20 +1,13 @@
 # Arquivos e pastas de ambiente virtual
 .venv/
-venv/
 
 # Arquivos de cache do Python
 pycache/
-*.py[cod]
-*$py.class
 
 # Arquivos gerados pelo PyInstaller ou similares
 build/
 dist/
 *.spec
 
-# Arquivos de teste e temporários
-teste.py
-
 # Ícones (se não fizerem parte do código-fonte essencial)
 icon.ico
-icon.svg

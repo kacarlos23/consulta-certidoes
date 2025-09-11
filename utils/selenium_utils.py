@@ -28,6 +28,8 @@ def wait_for_clickable(driver, by: By, locator: str, timeout: int = 10):
         EC.element_to_be_clickable((by, locator))
     )
 
+# Parte de funções de navegação de cada link de certidão
+
 def navegacao_consolidada(driver, cadastro):
 
     # localiza o campo do cnpj e insere o valor
@@ -58,10 +60,32 @@ def navegacao_inidoneidade(driver, cadastro):
     botao_baixar_pdf.click()
 
 def navegacao_improbidade(driver, cadastro):
-    ...
+    botao_tipo = wait_for_clickable(driver, By.XPATH, '//*[@id="tipoPessoaFisica"]')
+    botao_tipo.click()
+
+    campo_pesquisa = wait_for_presence(driver, By.XPATH, '//*[@id="num_cpf_cnpj"]')
+    campo_pesquisa.send_keys(cadastro)
+
+    botao_pesquisar = wait_for_clickable(driver, By.XPATH, '//*[@id="btnPesquisarRequerido"]')
+    botao_pesquisar.click()
 
 def navegacao_ceis(driver, cadastro):
-    ...
+    botao_ente_privado = wait_for_clickable(driver, By.XPATH, '//*[@id="__BVID__20"]/div[1]/label')
+    botao_ente_privado.click()
+
+    botao_certidao = wait_for_presence(driver, By.XPATH, '//*[@id="__BVID__31"]/tbody/tr/td[1]/div/input')
+    botao_certidao.click()
+
+    campo_pesquisa = wait_for_presence(driver, By.XPATH, '//*[@id="cpfCnpj"]')
+    campo_pesquisa.send_keys(cadastro)
+
+    botao_consultar = wait_for_clickable(driver, By.XPATH, '//*[@id="consultar"]')
+    botao_consultar.click()
+
+    botao_baixar = wait_for_clickable(driver, By.XPATH, "//tr[contains(., 'Certidão Negativa Correcional')]//button[contains(., 'Certidão')]")
+    botao_baixar.click()
+
+# Inicia a navegação e chama a função específica solicitada pelo usuário
 
 def iniciar_navegacao(link_da_certidao, cadastro):
 
@@ -88,5 +112,5 @@ def iniciar_navegacao(link_da_certidao, cadastro):
         return False
     
     finally:
-        sleep(10)
+        sleep(5)
         driver.close()

@@ -4,22 +4,22 @@ import os
 
 # lista de todas as certidoes e os dados delas
 certidoes = {
-    'TCU_CONSOLIDADA': {
+    'CONSOLIDADA': {
         'link': 'https://certidoes-apf.apps.tcu.gov.br/',
         'orgao': 'Tribunal de Contas da União',
         'descricao': 'Consulta consolidada de pessoa jurídica.'
     },
-    'TCU_INIDONEIDADE': {
+    'INIDONEIDADE': {
         'link': 'https://contas.tcu.gov.br/ords/f?p=1660:3:114749951000279::::P3_TIPO_RELACAO:INIDONEO',
         'orgao': 'Tribunal de Contas da União',
         'descricao': 'Consulta Certidão Inidôneos.'
     },
-    'CNJ_IMPROBIDADE': {
+    'IMPROBIDADE': {
         'link': 'https://www.cnj.jus.br/improbidade_adm/consultar_requerido.php',
         'orgao': 'Conselho Nacional de Justiça',
         'descricao': 'Consulta Certidão Improbidade Administrativa.'
     },
-    'CGU_CEIS': {
+    'CEIS': {
         'link': 'https://certidoes.cgu.gov.br/',
         'orgao': 'Controladoria Geral da União',
         'descricao': 'Consulta Certidões CEIS, CNEP e CEPIM.'
@@ -66,7 +66,7 @@ def menu_certidoes(tipo, cadastro):
 ====================================       
 1. TCU INIDONEIDADE
 2. CNJ IMPROBIDADE (indisponível)
-3. CGU CEIS (indisponível)
+3. CGU CEIS
 4. OUTRAS (indisponível)
 0. Sair
 ====================================''')
