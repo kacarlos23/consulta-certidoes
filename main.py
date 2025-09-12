@@ -21,6 +21,9 @@ def main():
             elif opcao == '2':
                 link = utils.certidoes['FEDERAL']['link']
                 selenium_utils.iniciar_navegacao(link, cadastro_corrigido)
+            elif opcao == '3':
+                link = utils.certidoes['FGTS']['link']
+                selenium_utils.iniciar_navegacao(link, cadastro_corrigido)
             elif opcao == '0':
                 # Emitir todas as certidões de CNPJ
                 for certidao in utils.certidoes_disponiveis['CNPJ']:
@@ -47,5 +50,9 @@ def main():
                     selenium_utils.iniciar_navegacao(link, cadastro_corrigido)
                     sleep(2)  # Pequena pausa entre as certidões
                 
+        utils.emitir_novamente()
+        if not utils.emitir_novamente():
+            break
+        
 if __name__ == '__main__':
     main()

@@ -1,6 +1,7 @@
 import re
 from time import sleep
 import os
+from main import main
 
 # lista de todas as certidoes e os dados delas
 certidoes = {
@@ -23,6 +24,10 @@ certidoes = {
     'FEDERAL': {
         'link': 'https://servicos.receitafederal.gov.br/servico/certidoes/#/home/cnpj',
         'orgao': 'Receita Federal'
+    },
+    'FGTS': {
+        'link': 'https://consulta-crf.caixa.gov.br/consultacrf/pages/consultaEmpregador.jsf?cnpj=08827351000182',
+        'orgao': 'Caixa Econômica Federal'
     }
 }
 
@@ -81,9 +86,25 @@ SELECIONE O TIPO DE CERTIDÃO
 ====================================       
 1. TCU CONSOLIDADA
 2. CND FEDERAL
+3. FGTS
 0. TODAS AS CERTIDÕES
 99. Sair
 ====================================''')
 
     opcao = input('Escolha uma opção: ')
     return opcao
+
+def emitir_novamente():
+    resp = input('Deseja continuar o programa? (S)im (N)ão --> ').lower().strip()
+    
+    if resp.startswith('s'):
+        print('Iniciando nova emissão de certidões...')
+        sleep(2)
+        return True
+    elif resp.startswith('n'):
+        print('Encerrando programa. Obrigado por usar nosso sistema!')
+        sleep(2)
+        exit()
+    else:
+        print('Opção inválida. Por favor, responda com S ou N.')
+        return emitir_novamente()

@@ -45,6 +45,9 @@ def aguardar_captcha():
 Funções de emissão de certidões referentes a União
 '''
 
+def navegacao_fgts(driver, cadastro):
+    ...
+
 def navegacao_federal(driver, cadastro):
     informa_cnpj = wait_for_clickable(driver, By.NAME, 'niContribuinte')
     informa_cnpj.send_keys(cadastro)
@@ -148,6 +151,9 @@ def iniciar_navegacao(link_da_certidao, cadastro):
         
         elif 'servicos.receitafederal' in link_da_certidao: # chama função pra FEDERAL
             return navegacao_federal(driver, cadastro)
+        
+        elif 'consulta-crf.caixa' in link_da_certidao: # chama função pra FEDERAL
+            return navegacao_fgts(driver, cadastro)
         
     except Exception as e:
         print(f'Erro durante a automação: {e}')
